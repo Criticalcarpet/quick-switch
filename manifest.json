@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "Quick Switch",
+    "version": "1.0.0",
+    "description": "Chrome extension that switches tabs quickly.",
+    "icons": {
+    },
+    "action": {
+        "default_title": "Quick Switch: Click for settings",
+        "default_popup": "index.html"
+    },
+    "permissions": [
+        "activeTab", "tabs", "storage", "scripting"
+    ],
+    "background": {
+        "service_worker": "background.js"
+      }
+}
+
