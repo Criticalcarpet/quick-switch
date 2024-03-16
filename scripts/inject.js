@@ -4,24 +4,23 @@ let receivedData;
   await chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // Access the data passed from the background script
     receivedData = message.message;
-    console.log("Received data in injected script:", receivedData);
+    if (receivedData === "remove") {
+        receivedData = false
+        return
+    }
   });
 
-  window.addEventListener("keydown", (event) => {
-    console.log(receivedData)
+  window.addEventListener("keydown", async (event) => {
     if (receivedData) {
       if (event.key >= 0 && event.key <= 9) {
-        chrome.storage.local.get(null, (items) => {
+        await chrome.storage.local.get(null, (items) => {
           let allKeys = Object.keys(items);
-          console.log(allKeys)
           for (let i = 0; i < allKeys.length; i++) {
             if (items[allKeys[i]]["shortcut"] == event.key) {
               if (receivedData) {
-                chrome.tabs.create({ url: items[allKeys[i]]["url"] });
-                chrome.action.setIcon({ path: "icons/icon-16.png" });
-              } else {
-                chrome.action.setIcon({ path: "icons/icon-16.png" });
-              }
+                // chrome.tabs.create({ url: items[allKeys[i]]["url"] });
+                chrome.runtime.sendMessage({ action: 'performAPIOperation', url: items[allKeys[i]]["url"] });
+              } 
             }
           }
         });

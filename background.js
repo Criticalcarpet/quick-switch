@@ -1,4 +1,11 @@
 let toggle = false;
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === 'performAPIOperation') {
+        chrome.tabs.create({ url: message.url });
+        chrome.action.setIcon({ path: "icons/icon-16.png" });
+        chrome.tabs.sendMessage(sender.tab.id, { message: "remove" });
+    }
+});
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "quick-switch") {
     toggle = !toggle;
