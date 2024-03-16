@@ -1,19 +1,22 @@
-chrome.commands.onCommand.addListener((command) => {
-    let toggle = false;
-    if(command === "quick-switch") {
-      
-      toggle = !toggle;
-      if(toggle) {
-         chrome.action.setIcon({path: "icons/active-16.png"});
-      } else {
-        chrome.action.setIcon({path: "icons/icon-16.png"});
-      }
-      // default to off after 5 seconds
-      setTimeout(() => {
-        if(toggle) {
-          toggle = false;
-          chrome.action.setIcon({path: "icons/icon-16.png"});
-        }
-      }, 5000);
+let toggle = false;
+chrome.commands.onCommand.addListener(async (command) => {
+  if (command === "quick-switch") {
+    toggle = !toggle;
+    let tabResult = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+    let tabId = tabResult[0].id;
+    if (toggle) {
+      chrome.action.setIcon({ path: "icons/active-16.png" });
+      await chrome.scripting.executeScript({
+        target: {tabId : tabId, allFrames: true},
+        files: ["scripts/inject.js"]
+      })
+      chrome.tabs.sendMessage(tabId, { message: toggle });
+      toggle = false;
+    } else {
+      chrome.action.setIcon({ path: "icons/icon-16.png" });
     }
-  });
+  }
+});
