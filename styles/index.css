@@ -10,3 +10,40 @@ body {
   text-align: center;
 }
 
+
+#table {
+    border-collapse: collapse;
+    border: 1px solid whitesmoke;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    width: 100%;
+    margin-top: 1em;
+}
+
+#table td, #table th {
+    border: 1px solid whitesmoke;
+    padding: 0.5em;
+    width: 50%;
+}
+
+#table th {
+    background-color: rgb(30, 30, 30);
+    color: whitesmoke;
+}
+
+#addButton {
+    margin-top: 1em;
+    width: 50%;
+    cursor: pointer;
+}
+
+#removeButton {
+    margin-top: 1em;
+    width: 50%;
+    cursor: pointer;
+}
+
+#buttonAdjacent {
+    display: flex;
+    justify-content: space-between;
+}
