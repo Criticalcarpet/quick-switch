@@ -4,10 +4,10 @@ document.getElementById(
 ).textContent = `Welcome to Quick Switch v${version}`;
 
 
-chrome.storage.local.get(null, function(items) {
-    var allKeys = Object.keys(items);
+chrome.storage.local.get(null, (items) => {
+    let allKeys = Object.keys(items);
     // set all the table rows
-    for (var i = 0; i < allKeys.length; i++) {
+    for (let i = 0; i < allKeys.length; i++) {
         document.getElementById("table").innerHTML += "<tr><td>" + allKeys[i] + "</td><td>" + items[allKeys[i]] + "</td></tr>";
     }
 });
