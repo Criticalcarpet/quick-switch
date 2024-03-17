@@ -1,6 +1,6 @@
 # Chrome Extension
 
-<div style="color:red"><b>Under development. Use at your own risk. Has numerous bugs.</b></div>
+<b>Under development. Use at your own risk. Has numerous bugs.</b>
 
 
 ## TODO : 
